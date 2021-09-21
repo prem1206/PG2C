@@ -11,6 +11,7 @@ import com.barclays.acc.model.Customer;
 import com.barclays.acc.model.Users;
 import com.barclays.acc.service.ManagerService;
 import com.barclays.acc.service.UsersService;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @RestController
 public class UsersController {
@@ -31,13 +32,19 @@ public class UsersController {
 			return ResponseEntity.status(401).body("Invalid Credentials");
 	}
 	}
+	
+	
 	@PostMapping("/changePassword")
-	public ResponseEntity<?> changePassword( @RequestBody Users user) {
-		if(userService.changePassword(user.getUserid(), user.getPassword())) {
+	public ResponseEntity<?> changePassword(@RequestBody ObjectNode objectnode) {
+		
+		int userid = Integer.parseInt(objectnode.get("userid").asText());
+		String password = objectnode.get("password").asText();
+		String newpassword = objectnode.get("newpassword").asText();
+		if(userService.changePassword(userid, password, newpassword )) {
 			return ResponseEntity.status(201).body("Changed Password Successfully");	
 		}
 		else {
-			return ResponseEntity.status(401).body("Invalid Credentials");
+			return ResponseEntity.status(401).body("Invalid Credentials"+newpassword);
 		}
 		
 		
