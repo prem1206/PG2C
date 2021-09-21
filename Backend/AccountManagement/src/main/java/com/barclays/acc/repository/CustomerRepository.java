@@ -9,5 +9,5 @@ import com.barclays.acc.model.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
-	public List<Customer> findByPanNo(String panNo); 
+	public List<Customer> findByPanno(String panno); 
 }

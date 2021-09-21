@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class Customer {
 	@Id
 	private int customerid;
-	private String panNo;
+	private String panno;
 	private String aadhar_no;
 	private String customer_name;
 	private String address;
