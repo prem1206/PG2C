@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/pg2c
     username: root
-    password: vtg2000
+    password: prem
   jpa:
     show-sql: true
   application:
