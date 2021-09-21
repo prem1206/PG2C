@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.barclays</groupId>
-	<artifactId>AccountManagement</artifactId>
+	<artifactId>acc</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>AccountManagement</name>
 	<description>Spring Boot Project for Account Management System</description>
@@ -41,6 +41,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
 	</dependencies>
 
 	<build>

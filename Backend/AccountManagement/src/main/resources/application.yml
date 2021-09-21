@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/pg2c
+    username: root
+    password: vtg2000
+  jpa:
+    show-sql: true
+  application:
+    name: Accounts project
+  main:
+    web-application-type: none
+server:
+  port: 9000
+  servlet:
+    context-path: /api/acc
