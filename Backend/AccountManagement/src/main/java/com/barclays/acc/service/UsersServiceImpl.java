@@ -1,10 +1,12 @@
 package com.barclays.acc.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.barclays.acc.model.Users;
 import com.barclays.acc.repository.UsersRepository;
 
+@Service
 public class UsersServiceImpl implements UsersService {
 	
 	@Autowired

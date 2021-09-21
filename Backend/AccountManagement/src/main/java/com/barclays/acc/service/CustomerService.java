@@ -6,7 +6,7 @@ import com.barclays.acc.model.Account;
 
 public interface CustomerService {
 	
-	public List<Account> viewAccounts(int customerID);
+	public List<Account> viewAccounts(int customerid);
 	
 //	add in account
 //	public String viewTransactions(int start, int end);

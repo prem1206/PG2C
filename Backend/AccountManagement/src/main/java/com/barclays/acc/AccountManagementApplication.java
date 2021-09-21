@@ -12,10 +12,10 @@ public class AccountManagementApplication {
 
 
 	public static void main(String[] args) {
-		//SpringApplication.run(AccountManagementApplication.class, args);
-		ApplicationContext applicationContext=SpringApplication.run(AccountManagementApplication.class, args);
-		ManagerService employeeService=applicationContext.getBean(ManagerService.class);
-		employeeService.generateCustomerId();
+		SpringApplication.run(AccountManagementApplication.class, args);
+//		ApplicationContext applicationContext=SpringApplication.run(AccountManagementApplication.class, args);
+//		ManagerService employeeService=applicationContext.getBean(ManagerService.class);
+//		employeeService.generateCustomerId();
 
 	}
 	
