@@ -26,13 +26,13 @@ public class AccountTransaction {
 //	@SequenceGenerator(name = "transactionID",schema = "transactionID",initialValue = 1)
 //	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int transactionid;
-	private int transactor_account_no;
-	private int transactee_account_no;
-//	@SequenceGenerator(name = "transactionID",schema = "transactionID",initialValue = 1,allocationSize = 1)
+	private int transactoraccountno;
+	private int transacteeaccountno;
+//	@SequenceGenerator(name = "trasactionID",schema = "transactionID",initialValue = 1,allocationSize = 1)
 //	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int trn;
-	private LocalDate transaction_date;
-	private String transaction_type;
+	private LocalDate transactiondate;
+	private String transactiontype;
 	private float amount;
 	
 }
