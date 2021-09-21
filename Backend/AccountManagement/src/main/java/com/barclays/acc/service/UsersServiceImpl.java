@@ -29,10 +29,10 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public boolean login(int userid, String password, int roleid) {
 		Users user = userRepository.findById(userid).get();
-		if(user == null) {
-			System.out.println("Not a user");
-		}
-		else if(password.equals(user.getPassword()) && roleid == user.getRoleid()){
+//		if(user.getUserid() != userid) {
+//			System.out.println("Not a user");
+//		}
+		if(user.getUserid()==userid && password.equals(user.getPassword()) && roleid == user.getRoleid()){
 			System.out.println("Login successful");
 			return true;
 		}
