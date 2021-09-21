@@ -14,8 +14,22 @@ public class UsersServiceImpl implements UsersService {
 	
 	@Override
 	public boolean changePassword( int userid, String password) {
-		Users user = userRepository.findById(userid).get();
+		
+		Users user;
+		try 
+		{ 
+			user = userRepository.findById(userid).get();
+		}
+		catch(Exception e) 
+		{
+			user = null;
+		}
+		if(user == null) {
+			System.out.println("Not a user");
+			return false;
+		}
 		String newpassword = "123";
+		
 		if(password.equals(user.getPassword())){
 			user.setPassword(newpassword);
 			userRepository.save(user);
@@ -28,11 +42,21 @@ public class UsersServiceImpl implements UsersService {
 	
 	@Override
 	public boolean login(int userid, String password, int roleid) {
-		Users user = userRepository.findById(userid).get();
-//		if(user.getUserid() != userid) {
-//			System.out.println("Not a user");
-//		}
-		if(user.getUserid()==userid && password.equals(user.getPassword()) && roleid == user.getRoleid()){
+		
+		Users user;
+		
+		try 
+		{ 
+			user = userRepository.findById(userid).get();
+		}
+		catch(Exception e) 
+		{
+			user = null;
+		}
+		if(user == null) {
+			System.out.println("Not a user");
+		}
+		else if(user.getUserid()==userid && password.equals(user.getPassword()) && roleid == user.getRoleid()){
 			System.out.println("Login successful");
 			return true;
 		}
@@ -42,4 +66,4 @@ public class UsersServiceImpl implements UsersService {
 		return false;
 		
 	};
-}
+	}
