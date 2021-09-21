@@ -15,9 +15,13 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public void changePassword( int userid, String password) {
 		Users user = userRepository.findById(userid).get();
-		user.setPassword(password);
-		userRepository.save(user);
-		System.out.println("Password changed successfully");
+		String newpassword = "neel";
+		if(password.equals(user.getPassword())){
+			user.setPassword(newpassword);
+			userRepository.save(user);
+			System.out.println("Password changed successfully");
+		}
+		
 	}
 	
 	@Override
