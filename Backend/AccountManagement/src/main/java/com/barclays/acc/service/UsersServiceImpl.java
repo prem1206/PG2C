@@ -19,4 +19,18 @@ public class UsersServiceImpl implements UsersService {
 		userRepository.save(user);
 		System.out.println("Password changed successfully");
 	}
+	
+	@Override
+	public void login(int userid, String password, int roleid) {
+		Users user = userRepository.findById(userid).get();
+		if(user == null) {
+			System.out.println("Not a user");
+		}
+		else if(password.equals(user.getPassword()) && roleid == user.getRoleid()){
+			System.out.println("Login successful");
+		}
+		else {
+			System.out.println("Incorrect credentials");
+		}
+	};
 }
