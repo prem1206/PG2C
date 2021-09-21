@@ -10,6 +10,7 @@ import com.barclays.acc.service.ManagerService;
 @SpringBootApplication
 public class AccountManagementApplication {
 
+
 	public static void main(String[] args) {
 		//SpringApplication.run(AccountManagementApplication.class, args);
 		ApplicationContext applicationContext=SpringApplication.run(AccountManagementApplication.class, args);
@@ -21,5 +22,6 @@ public class AccountManagementApplication {
 //    public AccountServiceImp getFunnyBean() {
 //        return new AccountServiceImp();
 //    }
+
 
 }
