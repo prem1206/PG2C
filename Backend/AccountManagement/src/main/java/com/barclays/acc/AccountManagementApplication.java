@@ -11,16 +11,12 @@ import com.barclays.acc.service.ManagerServiceImpl;
 @SpringBootApplication
 public class AccountManagementApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AccountManagementApplication.class, args);
-//		ApplicationContext applicationContext=SpringApplication.run(ManagerService.class, args);
-//		ManagerService employeeService=applicationContext.getBean(ManagerService.class);
-//		employeeService.display();
-	}
-	
-	@Bean(initMethod="display")
-    public ManagerServiceImpl getFunnyBean() {
-        return new ManagerServiceImpl();
+    public static void main(String[] args) {
+        //SpringApplication.run(AccountManagementApplication.class, args);
+        ApplicationContext applicationContext=SpringApplication.run(AccountManagementApplication.class, args);
+        ManagerServiceImpl employeeService=applicationContext.getBean(ManagerServiceImpl.class);
+        employeeService.generateCustomerId();
     }
+
 
 }
