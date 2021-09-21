@@ -1,4 +1,4 @@
-package com.barclays.accountmanagement;
+package com.barclays.acc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
