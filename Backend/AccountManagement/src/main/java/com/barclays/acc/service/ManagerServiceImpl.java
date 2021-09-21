@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.barclays.acc.model.Account;
 import com.barclays.acc.model.Customer;
 import com.barclays.acc.model.Manager;
+import com.barclays.acc.repository.AccountRepository;
 import com.barclays.acc.repository.CustomerRepository;
 import com.barclays.acc.repository.ManagerRepository;
 import java.util.Random;
@@ -21,11 +23,23 @@ public class ManagerServiceImpl implements ManagerService {
 	
 	@Autowired
 	CustomerRepository customerRepository;
+	
+	@Autowired
+	AccountRepository accountRepository;
 
 	@Override
-	public void createNewAccount() {
-		// TODO Auto-generated method stub
+	public void createNewAccount(String pan_no, String pancard, String aadharcard, String address, String email, String dob) {
+		int custid = checkPanCard(pan_no);
+		if(custid == -1) {
+			custid = generateCustomerId();
+			Customer cust = new Customer(custid, pancard, aadharcard, address, email, dob, 0);
+			customerRepository.save(cust);
+		}
+		int newAccNo = generateAccountNumber();
+		Account acc = new Account(newAccNo, 0, custid);
+		accountRepository.save(acc);
 		
+//		send password reset mail + welcome
 	}
 
 	@Override
@@ -68,15 +82,13 @@ public class ManagerServiceImpl implements ManagerService {
 		if(listCustomers == null) {
 			return -1;
 		}
-//		return listCustomers.get(0).getCustomerID();
-		return 0;
+		return listCustomers.get(0).getCustomerID();
 	}
 
 	@Override
 	public void sendMail(String password, String email) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Mail sent");
 	}
 	
-	
+
 }

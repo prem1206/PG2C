@@ -1,7 +1,7 @@
 package com.barclays.acc.service;
 
 public interface ManagerService {
-	public void createNewAccount();
+	public void createNewAccount(String pan_no, String pancard, String aadharcard, String address, String email, String dob);
 	public String generatePassword();
 	public int generateAccountNumber();
 	public int generateCustomerId();

@@ -10,6 +10,9 @@ import com.barclays.acc.model.Customer;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Integer> {
+
+	List<Account> findByCustomerID(int customerID);
+
 	
 //	@Query("START TRANSACTION "
 //			+ "UPDATE Account SET balance = balance - :amount  WHERE account_no= :account1"
