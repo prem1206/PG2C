@@ -14,7 +14,7 @@ public class AccountManagementApplication {
 		//SpringApplication.run(AccountManagementApplication.class, args);
 		ApplicationContext applicationContext=SpringApplication.run(AccountManagementApplication.class, args);
 		AccountService employeeService=applicationContext.getBean(AccountService.class);
-		employeeService.fundTransfer(1234, 1235, 100);;
+		employeeService.withdrawMoney(1234,100);
 	}
 	
 //	@Bean(initMethod="checkBalance")
