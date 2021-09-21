@@ -22,6 +22,5 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 //    public void transaction(@Param("account1")int account1,@Param("account2")int account2,
 //    		@Param("amount")int amount);
 	
-=======
 
 }
