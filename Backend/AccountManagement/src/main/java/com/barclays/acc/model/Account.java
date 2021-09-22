@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Table(name ="bank_accounts")
 public class Account {
 	@Id
-	private int account_no;
+	private int accountno;
 	private int balance;
 	private int customerid;
 
