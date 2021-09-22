@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import com.barclays.acc.service.AccountService;
+import com.barclays.acc.service.MailServiceImpl;
 
 @SpringBootApplication
 
@@ -13,10 +14,9 @@ public class AccountManagementApplication {
 
 	public static void main(String[] args) {
 
-		//SpringApplication.run(AccountManagementApplication.class, args);
-		ApplicationContext applicationContext=SpringApplication.run(AccountManagementApplication.class, args);
-		AccountService employeeService=applicationContext.getBean(AccountService.class);
-		employeeService.viewTransactions(1234);
+		SpringApplication.run(AccountManagementApplication.class, args);
+//		ApplicationContext applicationContext=SpringApplication.run(AccountManagementApplication.class, args);
+		
 	}
 	
 

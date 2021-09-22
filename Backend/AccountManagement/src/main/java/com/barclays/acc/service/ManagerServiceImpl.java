@@ -48,13 +48,14 @@ public class ManagerServiceImpl implements ManagerService {
 			customer.setPasswordstatus(0);
 			customer.setUserid(userid);
 			customerRepository.save(customer);
-			
+			MailServiceImpl.sendMail(customer.getEmail(), "Password reset", "Thanks for creating a new account with us. Your temporary password is"
+					+ user.getPassword() + ". Click on ... to change your password. ");
 		}
 		int newAccNo = generateAccountNumber();
 		Account acc = new Account(newAccNo, 0, custid);
 		accountRepository.save(acc);
 		System.out.println(custid);
-//		send password reset mail + welcome
+		MailServiceImpl.sendMail(customer.getEmail(), "Hello there!", "Thanks for creating a new account with us.");
 	}
 
 	@Override
