@@ -3,6 +3,7 @@ package com.barclays.acc.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,11 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	AccountRepository accountRepository;
 	
+	public static Logger logger = Logger.getLogger(CustomerServiceImpl.class);
+	
 	@Override
 	public List<Account> viewAccounts(int customerid) {
+		logger.info("Retrieving User Accounts..");
 		return accountRepository.findByCustomerid(customerid);
 	}
 

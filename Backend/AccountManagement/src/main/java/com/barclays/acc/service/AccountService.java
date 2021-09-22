@@ -1,5 +1,6 @@
 package com.barclays.acc.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -14,6 +15,6 @@ public interface AccountService {
 	public void addMoney(int accountno,int amount);		//POST
 	public void withdrawMoney(int accountno,int amount);//POST	
 	public List<AccountTransaction> viewTransactions(int acc);				//GET
-	public void exportTransactions();					
+	public List<AccountTransaction> exportTransactions(int acc,LocalDate startdate,LocalDate enddate);					
 	
 }
