@@ -24,15 +24,22 @@ public class UsersController {
 	
 	@PostMapping("/userLogin")
 	public ResponseEntity<?> userLogin( @RequestBody Users user) {
-		userService.login(user.getUserid(), user.getPassword(), user.getRoleid());
-		return ResponseEntity.status(200).body("Successfully logged in");
-		
+		if(userService.login(user.getUserid(), user.getPassword(), user.getRoleid())) {
+			return ResponseEntity.status(200).body("Successfully logged in");	
+		}
+		else {
+			return ResponseEntity.status(401).body("Invalid Credentials");
 	}
-	
+	}
 	@PostMapping("/changePassword")
 	public ResponseEntity<?> changePassword( @RequestBody Users user) {
-		userService.changePassword(user.getUserid(), user.getPassword());
-		return ResponseEntity.status(201).body("Changed Password Successfully");
+		if(userService.changePassword(user.getUserid(), user.getPassword())) {
+			return ResponseEntity.status(201).body("Changed Password Successfully");	
+		}
+		else {
+			return ResponseEntity.status(401).body("Invalid Credentials");
+		}
+		
 		
 	}
 }

@@ -13,28 +13,33 @@ public class UsersServiceImpl implements UsersService {
 	UsersRepository userRepository;
 	
 	@Override
-	public void changePassword( int userid, String password) {
+	public boolean changePassword( int userid, String password) {
 		Users user = userRepository.findById(userid).get();
-		String newpassword = "neel";
+		String newpassword = "123";
 		if(password.equals(user.getPassword())){
 			user.setPassword(newpassword);
 			userRepository.save(user);
 			System.out.println("Password changed successfully");
+			return true;
 		}
+		return false;
 		
 	}
 	
 	@Override
-	public void login(int userid, String password, int roleid) {
+	public boolean login(int userid, String password, int roleid) {
 		Users user = userRepository.findById(userid).get();
 		if(user == null) {
 			System.out.println("Not a user");
 		}
 		else if(password.equals(user.getPassword()) && roleid == user.getRoleid()){
 			System.out.println("Login successful");
+			return true;
 		}
 		else {
 			System.out.println("Incorrect credentials");
 		}
+		return false;
+		
 	};
 }
