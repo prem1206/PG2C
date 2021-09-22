@@ -7,25 +7,54 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.barclays.acc.model.Account;
 import com.barclays.acc.model.Customer;
 import com.barclays.acc.model.Manager;
+import com.barclays.acc.model.Users;
+import com.barclays.acc.repository.AccountRepository;
 import com.barclays.acc.repository.CustomerRepository;
 import com.barclays.acc.repository.ManagerRepository;
+import com.barclays.acc.repository.UsersRepository;
+
 import java.util.Random;
+
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 @Service
 public class ManagerServiceImpl implements ManagerService {
 	
 	@Autowired
-	ManagerRepository managerRepository;
+	CustomerRepository customerRepository;
 	
 	@Autowired
-	CustomerRepository customerRepository;
+	AccountRepository accountRepository;
+	
+	@Autowired 
+	UsersRepository userRepository;
 
 	@Override
-	public void createNewAccount() {
-		// TODO Auto-generated method stub
-		
+	public void createNewAccount(Customer customer) {
+		int custid = checkPanCard(customer.getPanno());
+		if(custid == -1) {
+			Users user=new Users();
+			user.setPassword(generatePassword());
+			user.setRoleid(0);
+			userRepository.save(user);
+			int userid = user.getUserid();
+			System.out.println(userid);
+			custid = generateCustomerId();
+			customer.setCustomerid(custid);
+			customer.setPassword_status(0);
+			customer.setUserid(userid);
+			customerRepository.save(customer);
+			
+		}
+		int newAccNo = generateAccountNumber();
+		Account acc = new Account(newAccNo, 0, custid);
+		accountRepository.save(acc);
+		System.out.println(custid);
+//		send password reset mail + welcome
 	}
 
 	@Override
@@ -42,13 +71,13 @@ public class ManagerServiceImpl implements ManagerService {
 
 	@Override
 	public int generateAccountNumber() {
-		int len = 10;
+		int len = 9;
 		String chars = "0123456789";
 		Random rnd = new Random();
 		StringBuilder sb = new StringBuilder(len);
 		for (int i = 0; i < len; i++)
 			sb.append(chars.charAt(rnd.nextInt(chars.length())));
-		return Integer.parseInt(sb.toString());
+		return Integer.parseInt("0"+sb.toString());
 	}
 
 	@Override
@@ -63,20 +92,19 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public int checkPanCard(String pan_no) {
-		List<Customer> listCustomers = customerRepository.findByPancard(pan_no);
-		if(listCustomers == null) {
+	public int checkPanCard(String panNo) {
+		List<Customer> listCustomers = customerRepository.findByPanno(panNo);
+//		System.out.println(listCustomers);
+		if(listCustomers.size() == 0) {
 			return -1;
 		}
-//		return listCustomers.get(0).getCustomerID();
-		return 0;
+		return listCustomers.get(0).getCustomerid();
 	}
 
 	@Override
 	public void sendMail(String password, String email) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Mail sent");
 	}
 	
-	
+
 }

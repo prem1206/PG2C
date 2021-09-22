@@ -15,11 +15,13 @@ import lombok.NoArgsConstructor;
 @Table(name ="customer_profiles")
 public class Customer {
 	@Id
-	private int customerID;
-	private String pancard;
-	private String adhaarcard;
-	private String Address;
+	private int customerid;
+	private String panno;
+	private String aadhar_no;
+	private String customer_name;
+	private String address;
 	private String email;
-	private String DOB;
-	private int status;
+	private String date_of_birth;
+	private int password_status;
+	private int userid;
 }
