@@ -1,5 +1,6 @@
 package com.barclays.acc.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,8 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	public List<Account> viewAccounts(int customerID) {
-		return accountRepository.findByCustomerID(customerID);
+		//return accountRepository.findByCustomerID(customerID);
+		return new ArrayList<Account>();
 	}
 
 }

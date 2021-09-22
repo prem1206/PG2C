@@ -16,12 +16,8 @@ public class AccountManagementApplication {
 		ApplicationContext applicationContext=SpringApplication.run(AccountManagementApplication.class, args);
 		ManagerService employeeService=applicationContext.getBean(ManagerService.class);
 		employeeService.generateCustomerId();
+
 	}
 	
-//	@Bean(initMethod="checkBalance")
-//    public AccountServiceImp getFunnyBean() {
-//        return new AccountServiceImp();
-//    }
-
 
 }
