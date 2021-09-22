@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import com.barclays.acc.service.AccountService;
-import com.barclays.acc.service.ManagerService;
 
 @SpringBootApplication
+
 public class AccountManagementApplication {
 
 
@@ -15,7 +15,7 @@ public class AccountManagementApplication {
 		//SpringApplication.run(AccountManagementApplication.class, args);
 		ApplicationContext applicationContext=SpringApplication.run(AccountManagementApplication.class, args);
 		AccountService employeeService=applicationContext.getBean(AccountService.class);
-		//employeeService.withdrawMoney(1234,100);
+		employeeService.viewTransactions(1234);;
 	}
 	
 

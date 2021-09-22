@@ -1,5 +1,7 @@
 package com.barclays.acc.service;
 
+import java.time.LocalDate;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +12,14 @@ import com.barclays.acc.model.Account;
 import com.barclays.acc.repository.AccountRepository;
 @Service
 public class AccountServiceImp implements AccountService{
-	
+
+	@Autowired
+	AccountTransactionService accountTransactionService;
+
 	@Autowired
 	AccountRepository accountrepository;
-
+	
+	
 	@Override
 	@Transactional
 	@Modifying
@@ -25,6 +31,8 @@ public class AccountServiceImp implements AccountService{
 		accountrepository.save(acc1);
 		accountrepository.save(acc2);
 		System.out.print("Successfully made transaction");
+		accountTransactionService.addTransaction(a1, a2,LocalDate.now(), "debit", (float)amount);
+		
 	}
 
 	@Override
@@ -41,6 +49,7 @@ public class AccountServiceImp implements AccountService{
 		Account acc = accountrepository.findById(accountno).get();
 		acc.setBalance(acc.getBalance()+amount);
 		accountrepository.save(acc);
+		accountTransactionService.addTransaction(accountno, accountno,LocalDate.now(), "credit", (float)amount);
 		
 	}
 
@@ -51,12 +60,13 @@ public class AccountServiceImp implements AccountService{
 		Account acc = accountrepository.findById(accountno).get();
 		acc.setBalance(acc.getBalance() - amount);
 		accountrepository.save(acc);
+		accountTransactionService.addTransaction(accountno, accountno,LocalDate.now(), "debit", (float)amount);
 		
 	}
 
 	@Override
-	public void viewTransactions() {
-		// TODO Auto-generated method stub
+	public void viewTransactions(int acc) {
+		accountTransactionService.viewTransaction(acc);
 		
 	}
 
