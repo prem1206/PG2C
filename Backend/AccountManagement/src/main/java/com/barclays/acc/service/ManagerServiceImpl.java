@@ -28,17 +28,18 @@ public class ManagerServiceImpl implements ManagerService {
 	AccountRepository accountRepository;
 
 	@Override
-	public void createNewAccount(String pan_no, String pancard, String aadharcard, String address, String email, String dob) {
-		int custid = checkPanCard(pan_no);
+	public void createNewAccount(Customer customer) {
+		int custid = checkPanCard(customer.getPanNo());
 		if(custid == -1) {
 			custid = generateCustomerId();
-			Customer cust = new Customer(custid, pancard, aadharcard, address, email, dob, 0);
-			customerRepository.save(cust);
+			customer.setCustomerid(custid);
+			customer.setPassword_status(0);
+			customerRepository.save(customer);
 		}
 		int newAccNo = generateAccountNumber();
 		Account acc = new Account(newAccNo, 0, custid);
 		accountRepository.save(acc);
-		
+		System.out.println(custid);
 //		send password reset mail + welcome
 	}
 
@@ -77,12 +78,12 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public int checkPanCard(String pan_no) {
-		List<Customer> listCustomers = customerRepository.findByPancard(pan_no);
+	public int checkPanCard(String panNo) {
+		List<Customer> listCustomers = customerRepository.findByPanNo(panNo);
 		if(listCustomers == null) {
 			return -1;
 		}
-		return listCustomers.get(0).getCustomerID();
+		return listCustomers.get(0).getCustomerid();
 	}
 
 	@Override

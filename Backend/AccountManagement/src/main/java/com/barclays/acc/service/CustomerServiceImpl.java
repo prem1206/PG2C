@@ -18,7 +18,7 @@ public class CustomerServiceImpl implements CustomerService {
 	AccountRepository accountRepository;
 	
 	@Override
-	public List<Account> viewAccounts(int customerID) {
+	public List<Account> viewAccounts(int customerid) {
 		//return accountRepository.findByCustomerID(customerID);
 		return new ArrayList<Account>();
 	}

@@ -12,7 +12,7 @@ import com.barclays.acc.model.Customer;
 public interface AccountRepository extends JpaRepository<Account, Integer> {
 
 
-	List<Account> findByCustomerID(int customerID);
+	List<Account> findByCustomerid(int customerid);
 
 	
 //	@Query("START TRANSACTION "
@@ -21,7 +21,5 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 //			+ "COMMIT")
 //    public void transaction(@Param("account1")int account1,@Param("account2")int account2,
 //    		@Param("amount")int amount);
-	
-=======
 
 }
