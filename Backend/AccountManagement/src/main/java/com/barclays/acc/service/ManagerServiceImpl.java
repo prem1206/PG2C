@@ -45,7 +45,7 @@ public class ManagerServiceImpl implements ManagerService {
 			System.out.println(userid);
 			custid = generateCustomerId();
 			customer.setCustomerid(custid);
-			customer.setPassword_status(0);
+			customer.setPasswordstatus(0);
 			customer.setUserid(userid);
 			customerRepository.save(customer);
 			

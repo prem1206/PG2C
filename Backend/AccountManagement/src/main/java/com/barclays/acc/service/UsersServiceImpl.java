@@ -13,28 +13,57 @@ public class UsersServiceImpl implements UsersService {
 	UsersRepository userRepository;
 	
 	@Override
-	public void changePassword( int userid, String password) {
-		Users user = userRepository.findById(userid).get();
-		String newpassword = "neel";
+	public boolean changePassword( int userid, String password) {
+		
+		Users user;
+		try 
+		{ 
+			user = userRepository.findById(userid).get();
+		}
+		catch(Exception e) 
+		{
+			user = null;
+		}
+		if(user == null) {
+			System.out.println("Not a user");
+			return false;
+		}
+		String newpassword = "123";
+		
 		if(password.equals(user.getPassword())){
 			user.setPassword(newpassword);
 			userRepository.save(user);
 			System.out.println("Password changed successfully");
+			return true;
 		}
+		return false;
 		
 	}
 	
 	@Override
-	public void login(int userid, String password, int roleid) {
-		Users user = userRepository.findById(userid).get();
+	public boolean login(int userid, String password, int roleid) {
+		
+		Users user;
+		
+		try 
+		{ 
+			user = userRepository.findById(userid).get();
+		}
+		catch(Exception e) 
+		{
+			user = null;
+		}
 		if(user == null) {
 			System.out.println("Not a user");
 		}
-		else if(password.equals(user.getPassword()) && roleid == user.getRoleid()){
+		else if(user.getUserid()==userid && password.equals(user.getPassword()) && roleid == user.getRoleid()){
 			System.out.println("Login successful");
+			return true;
 		}
 		else {
 			System.out.println("Incorrect credentials");
 		}
+		return false;
+		
 	};
-}
+	}

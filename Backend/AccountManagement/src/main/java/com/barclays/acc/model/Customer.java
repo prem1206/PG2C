@@ -17,11 +17,11 @@ public class Customer {
 	@Id
 	private int customerid;
 	private String panno;
-	private String aadhar_no;
-	private String customer_name;
+	private String aadharno;
+	private String customername;
 	private String address;
 	private String email;
-	private String date_of_birth;
-	private int password_status;
+	private String dateofbirth;
+	private int passwordstatus;
 	private int userid;
 }

@@ -4,9 +4,10 @@ spring:
     url: jdbc:mysql://localhost:3306/pg2c
     username: root
     password: prem
-  jpa:
-    show-sql: true
-  application:
+
+jpa:
+   show-sql: true
+application:
     name: Accounts project
 server:
   port: 9000
