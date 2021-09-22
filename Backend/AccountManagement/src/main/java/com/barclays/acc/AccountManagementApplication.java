@@ -13,10 +13,9 @@ public class AccountManagementApplication {
 
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(AccountManagementApplication.class, args);
 //		ApplicationContext applicationContext=SpringApplication.run(AccountManagementApplication.class, args);
-		
+//		AccountService employeeService=applicationContext.getBean(AccountService.class);
 	}
 	
 

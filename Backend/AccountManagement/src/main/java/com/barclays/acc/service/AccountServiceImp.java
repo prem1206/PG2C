@@ -1,6 +1,7 @@
 package com.barclays.acc.service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -9,6 +10,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import com.barclays.acc.model.Account;
+import com.barclays.acc.model.AccountTransaction;
 import com.barclays.acc.repository.AccountRepository;
 @Service
 public class AccountServiceImp implements AccountService{
@@ -37,9 +39,8 @@ public class AccountServiceImp implements AccountService{
 
 	@Override
 	public int checkBalance(int accountno)throws NullPointerException {
-		Account acc =  accountrepository.findById(1234).get();
-		System.out.println(acc.getBalance());
-		return 0;
+		Account acc =  accountrepository.findById(accountno).get();
+		return acc.getBalance();
 	}
 
 	@Override
@@ -65,8 +66,9 @@ public class AccountServiceImp implements AccountService{
 	}
 
 	@Override
-	public void viewTransactions(int acc) {
-		accountTransactionService.viewTransaction(acc);
+	public List<AccountTransaction> viewTransactions(int acc) {
+	 List<AccountTransaction> accountTransactions = accountTransactionService.viewTransaction(acc);
+	return accountTransactions;
 		
 	}
 
@@ -77,3 +79,4 @@ public class AccountServiceImp implements AccountService{
 	}
 
 }
+
