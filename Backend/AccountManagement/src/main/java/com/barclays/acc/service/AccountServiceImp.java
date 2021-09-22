@@ -1,6 +1,7 @@
 package com.barclays.acc.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -25,16 +26,21 @@ public class AccountServiceImp implements AccountService{
 	@Override
 	@Transactional
 	@Modifying
-	public void fundTransfer(int a1,int a2, int amount) {
+	public void fundTransfer(int a1,int a2, int amount) throws ArithmeticException {
 		Account acc1 =  accountrepository.findById(a1).get();
 		Account acc2 =  accountrepository.findById(a2).get();
+		if(acc1.getBalance() > amount) {
 		acc1.setBalance(acc1.getBalance()-amount);
 		acc2.setBalance(acc2.getBalance()+amount);
 		accountrepository.save(acc1);
 		accountrepository.save(acc2);
 		System.out.print("Successfully made transaction");
-		accountTransactionService.addTransaction(a1, a2,LocalDate.now(), "debit", (float)amount);
-		
+		accountTransactionService.addTransaction(a1, a2,LocalDateTime.now(), "debit", (float)amount);
+		}
+		else
+		{
+			throw new ArithmeticException();
+		}
 	}
 
 	@Override
@@ -50,19 +56,25 @@ public class AccountServiceImp implements AccountService{
 		Account acc = accountrepository.findById(accountno).get();
 		acc.setBalance(acc.getBalance()+amount);
 		accountrepository.save(acc);
-		accountTransactionService.addTransaction(accountno, accountno,LocalDate.now(), "credit", (float)amount);
+		accountTransactionService.addTransaction(accountno, accountno,LocalDateTime.now(), "credit", (float)amount);
 		
 	}
 
 	@Override
 	@Transactional
 	@Modifying
-	public void withdrawMoney(int accountno,int amount) {
+	public void withdrawMoney(int accountno,int amount) throws ArithmeticException{
 		Account acc = accountrepository.findById(accountno).get();
-		acc.setBalance(acc.getBalance() - amount);
-		accountrepository.save(acc);
-		accountTransactionService.addTransaction(accountno, accountno,LocalDate.now(), "debit", (float)amount);
 		
+			if(acc.getBalance() > amount) {
+			acc.setBalance(acc.getBalance() - amount);
+			accountrepository.save(acc);
+			accountTransactionService.addTransaction(accountno, accountno,LocalDateTime.now(), "debit", (float)amount);
+			}
+			else {
+				throw new ArithmeticException();
+			
+		} 
 	}
 
 	@Override
@@ -73,9 +85,10 @@ public class AccountServiceImp implements AccountService{
 	}
 
 	@Override
-	public void exportTransactions() {
-		// TODO Auto-generated method stub
+	public List<AccountTransaction> exportTransactions(int acc,LocalDate startdate,LocalDate enddate) {
 		
+		 List<AccountTransaction> accountTransactions = accountTransactionService.exportTransaction(acc,startdate,enddate);
+		 return accountTransactions;
 	}
 
 }
