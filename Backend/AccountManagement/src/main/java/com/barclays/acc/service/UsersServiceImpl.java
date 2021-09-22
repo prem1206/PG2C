@@ -13,7 +13,7 @@ public class UsersServiceImpl implements UsersService {
 	UsersRepository userRepository;
 	
 	@Override
-	public boolean changePassword( int userid, String password) {
+	public boolean changePassword( int userid, String password, String newpassword) {
 		
 		Users user;
 		try 
@@ -28,7 +28,6 @@ public class UsersServiceImpl implements UsersService {
 			System.out.println("Not a user");
 			return false;
 		}
-		String newpassword = "123";
 		
 		if(password.equals(user.getPassword())){
 			user.setPassword(newpassword);

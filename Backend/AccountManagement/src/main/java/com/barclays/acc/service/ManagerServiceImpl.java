@@ -34,7 +34,7 @@ public class ManagerServiceImpl implements ManagerService {
 	UsersRepository userRepository;
 
 	@Override
-	public void createNewAccount(Customer customer) {
+	public int createNewAccount(Customer customer) {
 		int custid = checkPanCard(customer.getPanno());
 		if(custid == -1) {
 			Users user=new Users();
@@ -48,14 +48,17 @@ public class ManagerServiceImpl implements ManagerService {
 			customer.setPasswordstatus(0);
 			customer.setUserid(userid);
 			customerRepository.save(customer);
-			MailServiceImpl.sendMail(customer.getEmail(), "Password reset", "Thanks for creating a new account with us. Your temporary password is"
+			MailServiceImpl.sendMail(customer.getEmail(), "Password reset", "Thanks for creating a new account with us."
+					+ "Your username is " + user.getUserid() 
+					+ " . Your temporary password is "
 					+ user.getPassword() + ". Click on ... to change your password. ");
 		}
 		int newAccNo = generateAccountNumber();
 		Account acc = new Account(newAccNo, 0, custid);
 		accountRepository.save(acc);
-		System.out.println(custid);
-		MailServiceImpl.sendMail(customer.getEmail(), "Hello there!", "Thanks for creating a new account with us.");
+		MailServiceImpl.sendMail(customer.getEmail(), "Hello there!", "Thanks for creating a new account with us. "
+				+ "Your account number is " + acc.getAccountno());
+		return custid;
 	}
 
 	@Override
@@ -102,10 +105,5 @@ public class ManagerServiceImpl implements ManagerService {
 		return listCustomers.get(0).getCustomerid();
 	}
 
-	@Override
-	public void sendMail(String password, String email) {
-		System.out.println("Mail sent");
-	}
-	
 
 }
