@@ -2,6 +2,7 @@ package com.barclays.acc.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,9 @@ public class AccountTransactionServiceImp implements AccountTransactionService {
 		
 	}
 	@Override
-	public void viewTransaction(int acc) {
-		System.out.println(accountTransactionRepository.findAllTransaction(acc).toString());
+	public List<AccountTransaction> viewTransaction(int acc) {
+		List<AccountTransaction> accountTransactions = accountTransactionRepository.findAllTransaction(acc);
+		return accountTransactions;
 		
 	}
 

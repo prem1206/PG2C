@@ -1,6 +1,7 @@
 package com.barclays.acc.repository;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +14,6 @@ import com.barclays.acc.model.AccountTransaction;
 public interface AccountTransactionRepository extends JpaRepository<AccountTransaction, Integer> {
 
 	@Query("select t from AccountTransaction t where t.transactee_account_no=:account or t.transactor_account_no=:account")
-			Collection<AccountTransaction> findAllTransaction(@Param("account") int account);
+			List<AccountTransaction> findAllTransaction(@Param("account") int account);
 }
 
