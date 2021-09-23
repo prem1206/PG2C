@@ -31,6 +31,13 @@ public interface AccountTransactionRepository extends JpaRepository<AccountTrans
 			)
 	List<AccountTransaction> findTransactionBetweenDate(@Param("account") int account,@Param("startdate") LocalDate startdate,@Param("enddate") LocalDate enddate);
 	
+	@Query(
+			value="select sum(amount) from transactions"
+				   +" where (transactiontype=\"debit\") and (date(transactiondate)=:date) "
+				   +"and ( transactoraccountno =:account and transacteeaccountno=:account)",
+				   nativeQuery=true
+			)
+	int findTotalWithdrawAmount(@Param("account") int account,@Param("date") LocalDate date);
 
 }
 

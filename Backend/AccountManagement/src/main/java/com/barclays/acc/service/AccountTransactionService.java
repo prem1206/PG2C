@@ -12,5 +12,5 @@ public interface AccountTransactionService {
 	public List<AccountTransaction> viewTransaction(int acc);
 	public List<AccountTransaction> viewAllTransaction(int acc);
 	public List<AccountTransaction> exportTransaction(int acc, LocalDate startdate, LocalDate enddate);
-
+	public int totalAmountWithdrawned(int acc,LocalDate date);
 }

@@ -70,5 +70,11 @@ public class AccountTransactionServiceImp implements AccountTransactionService {
 		return accountTransactions;
 		
 	}
+	@Override
+	public int totalAmountWithdrawned(int acc, LocalDate date) {
+		logger.info("Total Amount withdrawned by user account "+acc+" on "+date);
+		int sum = accountTransactionRepository.findTotalWithdrawAmount(acc, date);
+		return sum;
+	}
 
 }
