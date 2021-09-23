@@ -37,7 +37,7 @@ public interface AccountTransactionRepository extends JpaRepository<AccountTrans
 				   +"and ( transactoraccountno =:account and transacteeaccountno=:account)",
 				   nativeQuery=true
 			)
-	int findTotalWithdrawAmount(@Param("account") int account,@Param("date") LocalDate date);
+	Integer findTotalWithdrawAmount(@Param("account") int account,@Param("date") LocalDate date);
 
 }
 
