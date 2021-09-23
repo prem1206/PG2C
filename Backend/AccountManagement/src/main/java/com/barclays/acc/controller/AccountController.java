@@ -94,7 +94,7 @@ public class AccountController {
 	@GetMapping("/getAllTransactions/{acc}")
 	public ResponseEntity<?> getTransactions(@PathVariable int acc ) {
 		List<AccountTransaction> accountTransactions = accountService.viewTransactions(acc);
-		return ResponseEntity.status(201).body("Total Transaction done by "+accountTransactions.toString());
+		return ResponseEntity.status(201).body(accountTransactions);
 		
 	}	
 	@PostMapping("/gettransaction")

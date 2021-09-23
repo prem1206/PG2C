@@ -50,6 +50,7 @@ public class UsersServiceImpl implements UsersService {
 			logger.info("Password for "+userid+" changed successfully");
 			return true;
 		}
+		logger.info("Incorrect temp password entered");
 		return false;
 		
 	}

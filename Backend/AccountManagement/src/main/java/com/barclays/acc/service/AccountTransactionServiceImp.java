@@ -22,16 +22,17 @@ public class AccountTransactionServiceImp implements AccountTransactionService {
 	public static Logger logger = Logger.getLogger(AccountTransactionServiceImp.class);
 	
 	public int generateTrnNumber() {
-		logger.debug("Generating Account Number..");
+		logger.debug("Generating TRN Number..");
 		int len = 5;
 		String chars = "0123456789";
 		Random rnd = new Random();
 		StringBuilder sb = new StringBuilder(len);
 		for (int i = 0; i < len; i++)
 			sb.append(chars.charAt(rnd.nextInt(chars.length())));
-		logger.debug("Generated new Account no "+sb);
+		logger.debug("Generated new TRN no "+sb);
 		return Integer.parseInt("0"+sb.toString());
 	}
+	
 	@Override
 	public void addTransaction(int acc1, int acc2, LocalDateTime transaction_date,String type, float amount) {
 		

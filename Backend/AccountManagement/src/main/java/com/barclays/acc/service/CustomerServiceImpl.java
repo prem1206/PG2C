@@ -24,7 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	public List<Account> viewAccounts(int customerid) {
-		logger.info("Retrieving User Accounts..");
+		logger.info("Retrieving User Accounts for customer " + customerid );
 		return accountRepository.findByCustomerid(customerid);
 	}
 
