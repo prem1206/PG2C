@@ -64,20 +64,31 @@ public class AccountController {
 			return ResponseEntity.status(201).body("successfully Fund Tranfered");
 			}
 			catch (Exception e) {
-				return ResponseEntity.status(201).body("Insufficient Balance");
+				return ResponseEntity.status(201).body(e.getMessage());
 			}
 		
 	}	
 	@GetMapping("/checkbalance/{acc}")
 	public ResponseEntity<?> checkbalance(@PathVariable int acc ) {
+		try {
 		int balance = accountService.checkBalance(acc);
 		return ResponseEntity.status(201).body("Balance in Account "+acc+" is "+balance);
-		
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(201).body(e.getMessage());
+		}
+	
 	}	
 	@PostMapping("/addmoney")
 	public ResponseEntity<?> addMoney(@RequestBody moneyObj obj ) {
+		try {
 		accountService.addMoney(obj.getAcc(), obj.getAmount());
 		return ResponseEntity.status(201).body("successfully Fund added to "+obj.getAcc());
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(201).body(e.getMessage());
+		}
+		
 		
 	}
 	@PostMapping("/withdraw")
@@ -93,12 +104,18 @@ public class AccountController {
 	}
 	@GetMapping("/getAllTransactions/{acc}")
 	public ResponseEntity<?> getTransactions(@PathVariable int acc ) {
+		try {
 		List<AccountTransaction> accountTransactions = accountService.viewTransactions(acc);
 		return ResponseEntity.status(201).body(accountTransactions);
-		
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(201).body(e.getMessage());
+		}
+	
 	}	
 	@PostMapping("/gettransaction")
 	public ResponseEntity<?> getTransactionbetween(HttpServletResponse response,@RequestBody trancObj obj  )throws IOException {
+		try {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String startdate = LocalDate.parse(obj.getStartdate(), formatter).format(formatter2);
@@ -125,7 +142,11 @@ public class AccountController {
 	        csvWriter.close();
 	         
 		return ResponseEntity.status(201).body("Total Transaction done by "+accountTransactions.toString());
-		
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(201).body(e.getMessage());
+		}
+	
 	}	
 
 }

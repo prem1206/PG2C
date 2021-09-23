@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.barclays.acc.model.Account;
@@ -24,22 +25,33 @@ public class AccountServiceImp implements AccountService{
 	AccountRepository accountrepository;
 	
 	public static Logger logger = Logger.getLogger(AccountServiceImp.class);
-	
+	public boolean checkamount(int amount) {
+		if(amount < 0) {
+			logger.error("Encountered an error.. Amount is Invalid");
+			return false;
+		}
+		else
+			return true;
+	}
 	
 	@Override
 	@Transactional
 	@Modifying
-	public void fundTransfer(int a1,int a2, int amount) throws ArithmeticException {
+	public void fundTransfer(int a1,int a2, int amount)throws ArithmeticException{
+		if(!checkamount(amount)) {
+			throw new ArithmeticException("Amount invalid");
+		}
+		
 		logger.info("Transfering amount "+amount+" from account "+a1+" to account "+a2);
 		Account acc1 =  accountrepository.findById(a1).get();
 		Account acc2 =  accountrepository.findById(a2).get();
 		if(acc1.getBalance() > amount) {
-		acc1.setBalance(acc1.getBalance()-amount);
-		acc2.setBalance(acc2.getBalance()+amount);
-		accountrepository.save(acc1);
-		accountrepository.save(acc2);
-		logger.debug("Account tables successfully updated");
-		accountTransactionService.addTransaction(a1, a2,LocalDateTime.now(), "debit", (float)amount);
+			acc1.setBalance(acc1.getBalance()-amount);
+			acc2.setBalance(acc2.getBalance()+amount);
+			accountrepository.save(acc1);
+			accountrepository.save(acc2);
+			logger.debug("Account tables successfully updated");
+			accountTransactionService.addTransaction(a1, a2,LocalDateTime.now(), "debit", (float)amount);
 		}
 		else
 		{
@@ -58,7 +70,11 @@ public class AccountServiceImp implements AccountService{
 	@Override
 	@Transactional
 	@Modifying
-	public void addMoney(int accountno,int amount) {
+	public void addMoney(int accountno,int amount)throws ArithmeticException {
+
+		if(!checkamount(amount)) {
+			throw new ArithmeticException("Amount invalid");
+		}
 		Account acc = accountrepository.findById(accountno).get();
 		acc.setBalance(acc.getBalance()+amount);
 		accountrepository.save(acc);
@@ -70,6 +86,10 @@ public class AccountServiceImp implements AccountService{
 	@Transactional
 	@Modifying
 	public void withdrawMoney(int accountno,int amount) throws ArithmeticException{
+
+		if(!checkamount(amount)) {
+			throw new ArithmeticException("Amount invalid");
+		}
 		Account acc = accountrepository.findById(accountno).get();
 			int totalwithdrawned = accountTransactionService.totalAmountWithdrawned(accountno, LocalDate.now());
 			if((totalwithdrawned < 10000) && ((totalwithdrawned+amount)<10000)) {
@@ -91,7 +111,7 @@ public class AccountServiceImp implements AccountService{
 	}
 
 	@Override
-	public List<AccountTransaction> viewTransactions(int acc) {
+	public List<AccountTransaction> viewTransactions(int acc)throws ArithmeticException {
 		logger.info("Retrieving recent transactions from the user account "+acc);
 	 List<AccountTransaction> accountTransactions = accountTransactionService.viewTransaction(acc);
 	return accountTransactions;
@@ -99,13 +119,12 @@ public class AccountServiceImp implements AccountService{
 	}
 
 	@Override
-	public List<AccountTransaction> exportTransactions(int acc,LocalDate startdate,LocalDate enddate) {
+	public List<AccountTransaction> exportTransactions(int acc,LocalDate startdate,LocalDate enddate)throws ArithmeticException {
 		logger.info("Exporting transactions for the user account "+acc+" from "+startdate+" to "+enddate);
 		 List<AccountTransaction> accountTransactions = accountTransactionService.exportTransaction(acc,startdate,enddate);
 		 return accountTransactions;
+	
 	}
 	
-//	logger.error("Withdraw limit reached for the day for account no "+accountno"+. Try again tomorrow");
-
 }
 
