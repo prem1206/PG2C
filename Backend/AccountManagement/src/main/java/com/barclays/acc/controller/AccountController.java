@@ -88,7 +88,7 @@ public class AccountController {
 
 		}
 		catch (Exception e) {
-			return ResponseEntity.status(201).body("Insufficient Balance");
+			return ResponseEntity.status(201).body(e.getMessage());
 		}
 	}
 	@GetMapping("/getAllTransactions/{acc}")

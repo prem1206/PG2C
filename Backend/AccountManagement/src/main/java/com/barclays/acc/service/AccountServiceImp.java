@@ -71,7 +71,8 @@ public class AccountServiceImp implements AccountService{
 	@Modifying
 	public void withdrawMoney(int accountno,int amount) throws ArithmeticException{
 		Account acc = accountrepository.findById(accountno).get();
-		
+			int totalwithdrawned = accountTransactionService.totalAmountWithdrawned(accountno, LocalDate.now());
+			if((totalwithdrawned < 10000) && ((totalwithdrawned+amount)<10000)) {
 			if(acc.getBalance() > amount) {
 			acc.setBalance(acc.getBalance() - amount);
 			accountrepository.save(acc);
@@ -80,8 +81,13 @@ public class AccountServiceImp implements AccountService{
 			}
 			else {
 				logger.error("Cannot withdraw amount "+amount +" from account no "+accountno+" due to insufficient balance");
-				throw new ArithmeticException();
+				throw new ArithmeticException("Cannot withdraw amount "+amount +" from account no "+accountno+" due to insufficient balance");
 		} 
+			}
+			else {
+				logger.error("Cannot withdraw amount "+amount +" from account no "+accountno+" due to Limit Reached");
+				throw new ArithmeticException("Cannot withdraw amount "+amount +" from account no "+accountno+" due to Limit Reached");
+			}
 	}
 
 	@Override
